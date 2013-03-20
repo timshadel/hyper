@@ -81,10 +81,10 @@ content in place of the object containing `src`.
 ```console
 GET /employers/acme HTTP/1.1
 Host: example.com
-Accept: application/json, application/hyper
+Accept: application/json, application/hyper+json
 
 200 OK
-Content-Type: application/hyper
+Content-Type: application/hyper+json
 
 {"href":"/employers/acme","name": "Acme, Inc.","website": "http://acme.com/"}
 ```
@@ -120,7 +120,7 @@ the server has ultimate control, and this is just a hint.
 ```console
 GET /bhavesh/pic HTTP/1.1
 Host: example.com
-Accept: application/json, application/hyper, image/*
+Accept: application/json, application/hyper+json, image/*
 
 200 OK
 Content-Type: image/png
@@ -292,7 +292,7 @@ Showing agents how to take actions is really straightforward.
 
 Here's a registration action. Like HTML forms, the `action` key is the URI where the action
 will be submitted. The `method` key is used to indicate the HTTP verb used, and the `input`
-key defines the structure of the request body, which will be `application/json`.
+key defines the structure of the request body, which will be `application/hyper+json`.
 
 ```json
 {
@@ -312,7 +312,7 @@ Here's the kind of request that we'd expect a user agent to submit for a registr
 ```console
 POST /register HTTP/1.1
 Host: example.com
-Content-Type: application/json
+Content-Type: application/hyper+json
 
 {"email":"invalid.email-address"}
 ```
@@ -379,7 +379,7 @@ Here a valid registration request may look like this:
 ```console
 POST /register HTTP/1.1
 Host: example.com
-Content-Type: application/json
+Content-Type: application/hyper+json
 
 {
   "name": "John Smith"
