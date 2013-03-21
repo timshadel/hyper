@@ -1,6 +1,6 @@
-# hyper
+# Hyper — a JSON-based media type
 
-`hyper` can be used to represent objects. It has links, [Web Linking (RFC 5988)][web-linking] rels, and more.
+`hyper` can be used to represent graphs of objects. It has links, [RFC 5988 rels][web-linking], and more.
 
 [web-linking]: http://tools.ietf.org/html/rfc5988
 
