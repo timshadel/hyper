@@ -292,7 +292,9 @@ Showing agents how to take actions is really straightforward.
 
 Here's a registration action. Like HTML forms, the `action` key is the URI where the action
 will be submitted. The `method` key is used to indicate the HTTP verb used, and the `input`
-key defines the structure of the request body, which will be `application/hyper+json`.
+key defines the structure of the request body, which will be `application/hyper+json`. If the
+value of an input key is just a string, then it is the default value of that input, akin to
+HTML's `hidden` input type.
 
 ```json
 {
@@ -300,8 +302,9 @@ key defines the structure of the request body, which will be `application/hyper+
     "action": "/register",
     "method": "POST",
     "input": {
-      "name": "text",
-      "email": "text"
+      "name": { "type": "text" },
+      "email": { "type": "text" },
+      "csrf_key": "a13fa7980eec29e4067623259d8012df365825ea9b8bca68db523427adb88eb8"
     }
   }
 }
@@ -314,15 +317,20 @@ POST /register HTTP/1.1
 Host: example.com
 Content-Type: application/hyper+json
 
-{"email":"invalid.email-address"}
+{"email":"invalid.email-address","csrf_key":"a13fa7980eec29e4067623259d8012df365825ea9b8bca68db523427adb88eb8"}
 ```
 
-The input submitted is a conforming JSON document, with no keys besides `name` or `email` 
-which are both contain text.
+The input submitted is a conforming JSON document, with no keys besides `name`, `email`, or
+'csrf_key', all of which contain text.
 
 In order to require a value, we'll expand the document to include the `required` key. We've
 also use the `type` key again here to indicate (imaginary) media types each key is expected
-to conform to.
+to conform to. Adding a `value` key provides a default value for an input. Note that this is
+*not* the same as placeholder text, and it should be submitted unless the agent intentionally
+changes it. Adding `pattern` to the input tells the agent how to use pre-populated data in
+order to create the resulting input. The pattern below indicates that email addresses from
+`example.com` can be used. The `pattern` value is not binding, and should be considered
+helpful, but not relied upon to guarantee clean input.
 
 ```json
 {
@@ -332,11 +340,13 @@ to conform to.
     "input": {
       "name": {
         "type": "text",
-        "required": true
+        "required": true,
+        "value": "John Smith"
       },
       "email": {
         "type": "text/x-email",
-        "required": true
+        "required": true,
+        "pattern": { "{username}@example.com" }
       }
     }
   }
