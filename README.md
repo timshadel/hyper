@@ -327,10 +327,7 @@ In order to require a value, we'll expand the document to include the `required`
 also use the `type` key again here to indicate (imaginary) media types each key is expected
 to conform to. Adding a `value` key provides a default value for an input. Note that this is
 *not* the same as placeholder text, and it should be submitted unless the agent intentionally
-changes it. Adding `pattern` to the input tells the agent how to use pre-populated data in
-order to create the resulting input. The pattern below indicates that email addresses from
-`example.com` can be used. The `pattern` value is not binding, and should be considered
-helpful, but not relied upon to guarantee clean input.
+changes it.
 
 ```json
 {
@@ -345,8 +342,7 @@ helpful, but not relied upon to guarantee clean input.
       },
       "email": {
         "type": "text/x-email",
-        "required": true,
-        "pattern": { "{username}@example.com" }
+        "required": true
       }
     }
   }
